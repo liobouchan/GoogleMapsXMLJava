@@ -20,28 +20,17 @@ public class XML {
     public void crearXML() {  
   
         try {  
-            // returns an xml element object  
-            // school is passed to make it root element in document  
-            Element school = new Element("school");  
+
+            Element root = new Element("root");  
+            Document document = new Document(root);  
+            Element elemento = new Element("elemento");  
+
+            elemento.setAttribute(new Attribute("atributo", "valor"));  
+            elemento.addContent(new Element("Propiedad").setText("valor de la propiedad"));  
+            elemento.addContent(new Element("Propiedad2").setText("valor de la propiedad2"));  
   
-            // created an document object, all elements will be added to it  
-            // passes school as parameter to make it root element of document  
-            Document document = new Document(school);  
+            document.getRootElement().addContent(elemento);  
   
-            // created other element to add to document  
-            Element student = new Element("student");  
-  
-            // adding child attribute to student element  
-            student.setAttribute(new Attribute("id", "1"));  
-            student.addContent(new Element("firstname").setText("ankush"));  
-            student.addContent(new Element("lastname").setText("thakur"));  
-            student.addContent(new Element("email").setText("beingjavaguy@gmail.com"));  
-            student.addContent(new Element("phone").setText("8788987656"));  
-  
-            // get root element and added student element as a child of it  
-            document.getRootElement().addContent(student);  
-  
-            // get object to see output of prepared document  
             XMLOutputter xmlOutput = new XMLOutputter();  
   
             // passsed System.out to see document content on console  
@@ -54,6 +43,6 @@ public class XML {
   
         } catch (IOException io) {  
             System.out.println(io.getMessage());  
-        }  
+        }
     }  
 }  
