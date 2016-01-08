@@ -8,6 +8,9 @@ package Servlets;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -73,7 +76,26 @@ public class Login extends HttpServlet {
         SAXBuilder saxBuilder = new SAXBuilder();
         //Obtenemos la ruta relativa del archivo XML
         File archivoXML = new File(context.getRealPath("/XMLs/Usuarios/usuarios.xml"));
-     
+        
+        try{
+            //Se crea un documento a traves del archivo
+            Document document = (Document) saxBuilder.build(archivoXML);
+            //Obteniendo nodoRaiz
+            Element nodoRaiz = document.getRootElement();
+            List list = nodoRaiz.getChildren("Usuario");
+		for (int i = 0; i < list.size(); i++) {
+
+		   Element node = (Element) list.get(i);
+
+		   System.out.println("tipo : " + node.getChildText("tipo"));
+		   System.out.println("nombre : " + node.getChildText("nombre"));
+		   System.out.println("apaterno : " + node.getChildText("apaterno"));
+		   System.out.println("amaterno: " + node.getChildText("amaterno"));
+
+		}            
+        } catch (JDOMException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
