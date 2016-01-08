@@ -4,9 +4,17 @@
         <servlet-name>CrearXML</servlet-name>
         <servlet-class>Servlets.CrearXML</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GestionMarcadores</servlet-name>
+        <servlet-class>Servlets.GestionMarcadores</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrearXML</servlet-name>
         <url-pattern>/CrearXML</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestionMarcadores</servlet-name>
+        <url-pattern>/GestionMarcadores</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

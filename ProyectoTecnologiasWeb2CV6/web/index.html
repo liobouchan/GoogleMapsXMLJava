@@ -6,11 +6,64 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <script src = "http://maps.googleapis.com/maps/api/js"></script>
+        <script>
+         function loadMap() {
+			
+            var mapOptions = {
+               center:new google.maps.LatLng(19.5046424, -99.14685839999999), zoom:12,
+               mapTypeId:google.maps.MapTypeId.ROADMAP,
+               zoom:18,
+               panControl: true,
+               zoomControl: true,
+               scaleControl: true,
+               mapTypeControl:true,
+               streetViewControl:true,
+               overviewMapControl:true,
+               rotateControl:true
+            };
+				
+            var map = new google.maps.Map(document.getElementById("sample"),mapOptions);
+         }
+      </script>
+        <title>XML Maps</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>
+    <body onload = "loadMap()">
+        
+        <div id="formulario1">
+            <select name="cars">
+                <!--alimentar con java-->
+                <option value="volvo">ESCOM</option>
+                <option value="saab">UPIITA</option>
+                <option value="fiat">ESIME</option>
+                <option value="audi">UPIICSA</option>
+            </select>
+            <input type="submit" value="Navegar A Marcador" /><br><br>
+        </div>
+        
+        <form action="GestionMarcadores" method="GET">
+        <div id="formulario2">
+            Marcadores<br><br>
+            Nombre: <input type="text" name="nombre" /><br><br>
+            Latitud: <input type="text" name="latitud" /><br><br>
+            Longitud: <input type="text" name="longitud" /><br><br>
+            Comentario: <br> <textarea name="comentario" rows="4" cols="35"></textarea><br><br><!--http://www.tutorialspoint.com/google_maps/google_maps_events.htm-->
+            <input type="submit" value="Agregar Marcador" />
+            <input type="submit" value="Eliminar Marcador" /><br><br>
+            <input type="submit" value="Guardar Cambios" /><br><br>
+        </div>
+        </form>
+        
+        <div id="formulario2">
+            Polyline<br><br>
+            Latitud: <input type="text" name="latitud" /><br><br>
+            Longitud <input type="text" name="longitud" /><br><br>
+            <input type="submit" value="Agregar Punto" />
+            <input type="submit" value="Eliminar Punto" /><br><br>
+        </div>
+        <div id = "sample" style = "width:570px; height:580px;"></div>
         <form action="CrearXML" method="GET">
             <button type="submit">Crear XML</button>
         </form>
