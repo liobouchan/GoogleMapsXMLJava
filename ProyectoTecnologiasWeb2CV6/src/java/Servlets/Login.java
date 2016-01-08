@@ -83,16 +83,22 @@ public class Login extends HttpServlet {
             //Obteniendo nodoRaiz
             Element nodoRaiz = document.getRootElement();
             List list = nodoRaiz.getChildren("Usuario");
-		for (int i = 0; i < list.size(); i++) {
 
-		   Element node = (Element) list.get(i);
-
-		   System.out.println("tipo : " + node.getChildText("tipo"));
-		   System.out.println("nombre : " + node.getChildText("nombre"));
-		   System.out.println("apaterno : " + node.getChildText("apaterno"));
-		   System.out.println("amaterno: " + node.getChildText("amaterno"));
-
-		}            
+            for (int i = 0; i < list.size(); i++) {
+                Element elemento = (Element) list.get(i);
+                List listUsuario = elemento.getChildren("user");
+                List listPassword = elemento.getChildren("pass");
+                if( listUsuario != null && listUsuario.size() > 0 ){
+                    Element elementoUsuario = (Element)listUsuario.get(0);
+                    //System.out.println("elemeto" + elementoUsuario);
+                    String usuarioXML = elementoUsuario.getText();
+                    System.out.println("lalala" + usuarioXML);
+                    if(usuario.equals(usuarioXML)){
+                        System.out.println("Entro a la igualdad" + usuarioXML);
+                    }
+                }
+            }
+            
         } catch (JDOMException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
