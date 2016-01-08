@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Marcadores>
+    <Lugar ID="1">
+        <nombre>ESCOM</nombre>
+        <altitud>19.5046424</altitud>
+        <longitud>-99.14685839999999</longitud>
+        <comentario>Escuela Superior de Computo</comentario>
+    </Lugar>
+</Marcadores>
