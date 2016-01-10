@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Usuarios>
-    <Usuario tipo="Administrador">
-        <tipo>Administrador</tipo>
-        <nombre>Administrador</nombre>
-        <apaterno>Paterno</apaterno>
-        <amaterno>Materno</amaterno>
-        <email>Administrador</email>
+    <Usuario>
         <user>Administrador</user>
         <pass>Administrador</pass>
     </Usuario>
-    <Usuario tipo="Alumno">
-        <tipo>Alumno</tipo>
-        <nombre>Isaac</nombre>
-        <apaterno>Var</apaterno>
-        <amaterno>Lar</amaterno>
-        <email>iv@</email>
+    <Usuario>
         <user>ivargas</user>
         <pass>lara</pass>
+    </Usuario>
+    <Usuario>
+        <user>leo</user>
+        <pass>leo</pass>
     </Usuario>
 </Usuarios>

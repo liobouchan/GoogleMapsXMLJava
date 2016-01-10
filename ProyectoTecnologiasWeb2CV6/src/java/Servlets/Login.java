@@ -16,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilderFactory;
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
 
@@ -95,7 +94,15 @@ public class Login extends HttpServlet {
                     System.out.println("lalala" + usuarioXML);
                     if(usuario.equals(usuarioXML)){
                         System.out.println("Entro a la igualdad" + usuarioXML);
+                        Element elementoPassword = (Element)listPassword.get(0);
+                        String passwordXML = elementoPassword.getText();
+                        System.out.println("passwordXML "+ passwordXML);
+                        if( password.equals(passwordXML) ){
+                            System.out.println("Bienvenido has entrado con u"+ usuarioXML + "p" + passwordXML);
+                            response.sendRedirect("Pagina.html");
+                        }
                     }
+                    
                 }
             }
             
