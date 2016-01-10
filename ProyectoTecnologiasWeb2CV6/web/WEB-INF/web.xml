@@ -12,6 +12,10 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Servlets.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegistrarUsuario</servlet-name>
+        <servlet-class>Servlets.RegistrarUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrearXML</servlet-name>
         <url-pattern>/CrearXML</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrarUsuario</servlet-name>
+        <url-pattern>/RegistrarUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
