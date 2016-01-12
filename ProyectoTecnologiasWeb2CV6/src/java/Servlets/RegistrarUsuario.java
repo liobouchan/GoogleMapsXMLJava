@@ -7,6 +7,8 @@ package Servlets;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 /**
  *
@@ -83,23 +87,27 @@ public class RegistrarUsuario extends HttpServlet {
         
         try{
             
-            ServletContext servletContext = request.getServletContext();
-            File archivoXML = new File(servletContext.getRealPath("/XML/Usuarios.xml"));
-            FileInputStream fileInputStream = new FileInputStream(archivoXML);
             SAXBuilder saxBuilder = new SAXBuilder();
-            Document document = saxBuilder.build(archivoXML);
+            ServletContext servletContext = request.getServletContext();
+            File archivoXML = new File(servletContext.getRealPath("/XMLs/Usuarios/usuarios.xml"));
+            Document document = (Document) saxBuilder.build(archivoXML) ;
             Element nodoRaiz = document.getRootElement();
             
-            fileInputStream.close();
+            System.out.println(nodoRaiz);
+            //Element elementos = nodoRaiz.getChild("Usuario");
+            //System.out.println(elementos);
+            Element campo = new Element("Usuario");
+            Element nuevoUsuario = new Element("user").setText(usuario);
+            campo.addContent(nuevoUsuario);
             
-            Element Nuevousuario = new Element("Usuario");
-            Element user = new Element("user").setText(usuario);
-            Element pass = new Element("pass").setText(password);
-            
-            nodoRaiz.addContent(user);
-            nodoRaiz.addContent(pass);
-            
-            document.setContent(nodoRaiz);
+            Element nuevaPass = new Element("pass").setText(password);
+            campo.addContent(nuevaPass);
+            //elementos.addContent(campo);
+            nodoRaiz.addContent(campo);
+            XMLOutputter xmlOut = new XMLOutputter();
+            xmlOut.setFormat(Format.getPrettyFormat());
+            xmlOut.output(document, new FileWriter(archivoXML));
+            response.sendRedirect("index.html");
             
         } catch (JDOMException ex) {
             Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);

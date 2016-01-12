@@ -100,7 +100,11 @@ public class Login extends HttpServlet {
                         if( password.equals(passwordXML) ){
                             System.out.println("Bienvenido has entrado con u"+ usuarioXML + "p" + passwordXML);
                             response.sendRedirect("Pagina.html");
+                        }else{
+                            System.out.print("Password INcorrecto");
                         }
+                    }else{
+                        System.out.println("Usuario NO existe");
                     }
                     
                 }
