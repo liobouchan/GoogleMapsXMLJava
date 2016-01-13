@@ -8,11 +8,18 @@ package Servlets;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 /**
@@ -30,6 +37,7 @@ public class ObtenerMarcadores extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -59,10 +67,35 @@ public class ObtenerMarcadores extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         //processRequest(request, response);
-        SAXBuilder saxBuilder = new SAXBuilder();
-        ServletContext servletContext = request.getServletContext();
-        File archivoXML = new File(servletContext.getRealPath("/XMLs/Marcadores.xml"));        
+        try{
+          SAXBuilder saxBuilder = new SAXBuilder();
+          ServletContext servletContext = request.getServletContext();
+          File archivoXML = new File(servletContext.getRealPath("/XMLs/Marcadores.xml"));
+          Document document = saxBuilder.build(archivoXML);
+          Element nodoRaiz = document.getRootElement();
+          out.println("El nodo Raiz es : " + nodoRaiz);
+          List<Element> listaDeMarcadores = nodoRaiz.getChildren();
+          out.println("esto es la lista de Marcadores " + listaDeMarcadores);
+          
+          for (int i = 0; i < listaDeMarcadores.size(); i++) {
+              out.println("Marcador Número " + i);
+              Element marcador = listaDeMarcadores.get(i);
+              out.println("Marcador " + marcador.getName());
+              Attribute atributo =  marcador.getAttribute("ID");
+              out.println("ID del marcador " + atributo.getValue());
+              
+            out.println("Nombre : " + marcador.getChild("nombre").getText());
+            out.println("Altitud : "+ marcador.getChild("altitud").getText());
+            out.println("Longitud : "+ marcador.getChild("longitud").getText());
+            out.println("Comentarios : "+ marcador.getChild("comentario").getText());	
+          }
+          
+        }
+        catch (JDOMException ex) {
+            Logger.getLogger(ObtenerMarcadores.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
