@@ -67,35 +67,108 @@ public class ObtenerMarcadores extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         //processRequest(request, response);
+        out.print("<html lang=\"en\">\n" +
+"    <head>\n" +
+"        <meta charset=\"utf-8\">\n" +
+"        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+"        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+"        <title>XML Google Maps</title>\n" +
+"\n" +
+"        <!-- Bootstrap core CSS -->\n" +
+"        <link href=\"Bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">\n" +
+"        <!-- Custom styles for this template -->\n" +
+"        <link href=\"CSS/inicioApp.css\" rel=\"stylesheet\">\n" +
+"        <script src = \"http://maps.googleapis.com/maps/api/js\"></script>\n" +
+"\n" +
+"        <script>\n" +
+"            function loadMap() {\n" +
+"                var mapOptions = {\n" +
+"                    center:new google.maps.LatLng(19.5046424, -99.14685839999999), zoom:12,\n" +
+"                    mapTypeId:google.maps.MapTypeId.ROADMAP,\n" +
+"                    zoom:18,\n" +
+"                    panControl: true,\n" +
+"                    zoomControl: true,\n" +
+"                    scaleControl: true,\n" +
+"                    mapTypeControl:true,\n" +
+"                    streetViewControl:true,\n" +
+"                    overviewMapControl:true,\n" +
+"                    rotateControl:true\n" +
+"                };\n" +
+"\n" +
+"                var map = new google.maps.Map(document.getElementById(\"sample\"),mapOptions);\n" +
+"            }\n" +
+"        </script>\n" +
+"    </head>    <body onload = \"loadMap()\">\n" +
+"      <nav class=\"navbar navbar-inverse navbar-fixed-top\">\n" +
+"        <div class=\"container\">\n" +
+"          <div class=\"navbar-header\">\n" +
+"            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">              <span class=\"sr-only\">Toggle navigation</span>\n" +
+"              <span class=\"icon-bar\"></span>\n" +
+"              <span class=\"icon-bar\"></span>\n" +
+"              <span class=\"icon-bar\"></span>\n" +
+"            </button>\n" +
+"            <a class=\"navbar-brand\" href=\"#\">XML Google Maps</a>\n" +
+"          </div>\n" +
+"          <div id=\"navbar\" class=\"collapse navbar-collapse\">\n" +
+"            <ul class=\"nav navbar-nav\">\n" +
+"              <li class=\"active\"><a href=\"#\">Home</a></li>\n" +
+"              <li><a href=\"#about\"></a></li>\n" +
+"              <li><a href=\"#contact\"></a></li>\n" +
+"            </ul>\n" +
+"          </div><!--/.nav-collapse -->\n" +
+"        </div>\n" +
+"      </nav>     <div class=\"container\">\n" +
+"        <div class=\"row\">\n" +
+"            <div class=\"col-md-6\" id=\"formulario2\">\n" +
+"                <h2>Marcadores Guardados en XML</h2>");
         try{
+            
           SAXBuilder saxBuilder = new SAXBuilder();
           ServletContext servletContext = request.getServletContext();
           File archivoXML = new File(servletContext.getRealPath("/XMLs/Marcadores.xml"));
           Document document = saxBuilder.build(archivoXML);
           Element nodoRaiz = document.getRootElement();
-          out.println("El nodo Raiz es : " + nodoRaiz);
+          //out.println("El nodo Raiz es : " + nodoRaiz);
           List<Element> listaDeMarcadores = nodoRaiz.getChildren();
-          out.println("esto es la lista de Marcadores " + listaDeMarcadores);
+          //out.println("esto es la lista de Marcadores " + listaDeMarcadores);
           
           for (int i = 0; i < listaDeMarcadores.size(); i++) {
-              out.println("Marcador Número " + i);
-              Element marcador = listaDeMarcadores.get(i);
-              out.println("Marcador " + marcador.getName());
-              Attribute atributo =  marcador.getAttribute("ID");
-              out.println("ID del marcador " + atributo.getValue());
-              
+            //out.println("Marcador Número " + i);
+            out.println("<br>");
+            Element marcador = listaDeMarcadores.get(i);
+            //out.println("Marcador " + marcador.getName());
+            out.println("<br>");
+            Attribute atributo =  marcador.getAttribute("ID");
+            out.println("ID del marcador " + atributo.getValue());
+            out.println("<br>");
             out.println("Nombre : " + marcador.getChild("nombre").getText());
-            out.println("Altitud : "+ marcador.getChild("altitud").getText());
+            out.println("<br>");
+            out.println("Altitud : "+ marcador.getChild("latitud").getText());
+            out.println("<br>");
             out.println("Longitud : "+ marcador.getChild("longitud").getText());
+            out.println("<br>");
             out.println("Comentarios : "+ marcador.getChild("comentario").getText());	
           }
-          
         }
         catch (JDOMException ex) {
             Logger.getLogger(ObtenerMarcadores.class.getName()).log(Level.SEVERE, null, ex);
         }
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<a class=\"btn btn-success\" href=\"InicioApp.html\" role=\"button\">Regresar</a>");
+        out.println("</div>\n" +
+"        </div>\n" +
+"      </div><!-- /.container -->\n" +
+"      <!-- Bootstrap core JavaScript\n" +
+"      ================================================== -->\n" +
+"      <!-- Placed at the end of the document so the pages load faster -->\n" +
+"      <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>\n" +
+"      <script src=\"Bootstrap/js/bootstrap.min.js\"></script>\n" +
+"  </body>\n" +
+"</html>");
     }
 
     /**

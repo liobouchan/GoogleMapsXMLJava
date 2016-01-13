@@ -2,7 +2,7 @@
 <Marcadores>
     <Lugar ID="1">
         <nombre>ESCOM</nombre>
-        <altitud>19.5046424</altitud>
+        <latitud>19.5046424</latitud>
         <longitud>-99.14685839999999</longitud>
         <comentario>Escuela Superior de Computo</comentario>
     </Lugar>
