@@ -61,7 +61,7 @@ public class GestionMarcadores extends HttpServlet {
             xmlop.output(doc,writer);
             xmlop.output(doc, System.out);
             writer.close();
-            response.sendRedirect("index.html");
+            response.sendRedirect("InicioApp.html");
             //add google maps markers dynamically
         } catch (JDOMException ex) {
             //Logger.getLogger(GestionMarcadores.class.getName()).log(Level.SEVERE, null, ex);

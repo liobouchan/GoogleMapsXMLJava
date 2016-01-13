@@ -1,71 +1,86 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Starter Template for Bootstrap</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="CSS/inicioApp.css" rel="stylesheet">
         <script src = "http://maps.googleapis.com/maps/api/js"></script>
+
         <script>
-         function loadMap() {
-			
-            var mapOptions = {
-               center:new google.maps.LatLng(19.5046424, -99.14685839999999), zoom:12,
-               mapTypeId:google.maps.MapTypeId.ROADMAP,
-               zoom:18,
-               panControl: true,
-               zoomControl: true,
-               scaleControl: true,
-               mapTypeControl:true,
-               streetViewControl:true,
-               overviewMapControl:true,
-               rotateControl:true
-            };
-				
-            var map = new google.maps.Map(document.getElementById("sample"),mapOptions);
-         }
-      </script>
-        <title>XML Maps</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            function loadMap() {
+                var mapOptions = {
+                    center:new google.maps.LatLng(19.5046424, -99.14685839999999), zoom:12,
+                    mapTypeId:google.maps.MapTypeId.ROADMAP,
+                    zoom:18,
+                    panControl: true,
+                    zoomControl: true,
+                    scaleControl: true,
+                    mapTypeControl:true,
+                    streetViewControl:true,
+                    overviewMapControl:true,
+                    rotateControl:true
+                };
+
+                var map = new google.maps.Map(document.getElementById("sample"),mapOptions);
+            }
+        </script>
     </head>
     <body onload = "loadMap()">
-        
-        <div id="formulario1">
-            <select name="cars">
-                <!--alimentar con java-->
-                <option value="volvo">ESCOM</option>
-                <option value="saab">UPIITA</option>
-                <option value="fiat">ESIME</option>
-                <option value="audi">UPIICSA</option>
-            </select>
-            <input type="submit" value="Navegar A Marcador" /><br><br>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">XML Google Maps</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about"></a></li>
+              <li><a href="#contact"></a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
         </div>
-        
-        <form action="GestionMarcadores" method="GET">
-        <div id="formulario2">
-            Marcadores<br><br>
-            Nombre: <input type="text" name="nombre" /><br><br>
-            Latitud: <input type="text" name="latitud" /><br><br>
-            Longitud: <input type="text" name="longitud" /><br><br>
-            Comentario: <br> <textarea name="comentario" rows="4" cols="35"></textarea><br><br><!--http://www.tutorialspoint.com/google_maps/google_maps_events.htm-->
-            <input type="submit" value="Agregar Marcador" />
-            <input type="submit" value="Eliminar Marcador" /><br><br>
-            <input type="submit" value="Guardar Cambios" /><br><br>
+      </nav>
+
+      <div class="container">
+        <div class="row">
+            <div class="col-md-6" id="formulario2">
+                <h2>Marcadores <small>Agregar un Marcador</small></h2>
+                <form action="GestionMarcadores" method="GET">
+                    <div class="form-group">
+                        <label for="Nombre">Nombre</label>
+                        <input type="email" class="form-control" name="nombre" placeholder="Ingresa nombre del Marcador">
+                        <label for="Latitud">Latitud</label>
+                        <input type="text" class="form-control" name="latitud" placeholder="Latitud de la posicion">
+                        <label for="Longitud">Longitud</label>
+                        <input type="email" class="form-control" name="longitud" placeholder="Longitud de la posicion">
+                        <label for="Comentario">Comentario</label>
+                        <textarea class="form-control" name="comentario" placeholder="Comentarios referentes a el marcador"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-default" value="Agregar Marcador">Agregar Marcador</button>
+                    <button type="submit" class="btn btn-default" value="Eliminar Marcador">Eliminar Marcador</button>
+                    <button type="submit" class="btn btn-default" value="Guardar Cambios">Guardar Cambios</button>
+                </form>
+            </div>
+            <div class="col-md-6">RESERVADO PARA OTRA FUNCIÓN</div>
         </div>
-        </form>
-        
-        <div id="formulario2">
-            Polyline<br><br>
-            Latitud: <input type="text" name="latitud" /><br><br>
-            Longitud <input type="text" name="longitud" /><br><br>
-            <input type="submit" value="Agregar Punto" />
-            <input type="submit" value="Eliminar Punto" /><br><br>
-        </div>
-        <div id = "sample" style = "width:570px; height:580px;"></div>
-        <form action="CrearXML" method="GET">
-            <button type="submit">Crear XML</button>
-        </form>
-    </body>
+      </div><!-- /.container -->
+
+
+      <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="Bootstrap/js/bootstrap.min.js"></script>
+  </body>
 </html>
