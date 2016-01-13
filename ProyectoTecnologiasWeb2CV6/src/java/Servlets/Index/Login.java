@@ -99,7 +99,7 @@ public class Login extends HttpServlet {
                         System.out.println("passwordXML "+ passwordXML);
                         if( password.equals(passwordXML) ){
                             System.out.println("Bienvenido has entrado con u"+ usuarioXML + "p" + passwordXML);
-                            response.sendRedirect("Pagina.html");
+                            response.sendRedirect("InicioApp.html");
                         }else{
                             System.out.print("Password INcorrecto");
                         }
