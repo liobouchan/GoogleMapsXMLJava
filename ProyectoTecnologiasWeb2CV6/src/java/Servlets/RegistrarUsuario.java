@@ -82,6 +82,7 @@ public class RegistrarUsuario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        PrintWriter out = response.getWriter();
         String usuario = request.getParameter("usuario");
         String password = request.getParameter("password");
         
