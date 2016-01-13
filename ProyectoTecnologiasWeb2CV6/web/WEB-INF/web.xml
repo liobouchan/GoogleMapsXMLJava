@@ -16,6 +16,10 @@
         <servlet-name>RegistrarUsuario</servlet-name>
         <servlet-class>Servlets.Index.RegistrarUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ObtenerMarcadores</servlet-name>
+        <servlet-class>Servlets.ObtenerMarcadores</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrearXML</servlet-name>
         <url-pattern>/CrearXML</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
         <url-pattern>/RegistrarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ObtenerMarcadores</servlet-name>
+        <url-pattern>/ObtenerMarcadores</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
