@@ -10,11 +10,11 @@
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>Servlets.Login</servlet-class>
+        <servlet-class>Servlets.Index.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegistrarUsuario</servlet-name>
-        <servlet-class>Servlets.RegistrarUsuario</servlet-class>
+        <servlet-class>Servlets.Index.RegistrarUsuario</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CrearXML</servlet-name>

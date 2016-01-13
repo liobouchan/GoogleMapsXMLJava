@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlets;
+package Servlets.Index;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -20,14 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
+
 
 /**
  *
  * @author lio
  */
-public class RegistrarUsuario extends HttpServlet {
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,15 +43,16 @@ public class RegistrarUsuario extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegistrarUsuario</title>");            
+            out.println("<title>Servlet Login</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegistrarUsuario at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -68,6 +66,53 @@ public class RegistrarUsuario extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        
+        String usuario = request.getParameter("usuario");
+        String password = request.getParameter("password");
+        //Para obtener datos acerca de la aplicacion web
+        ServletContext context = request.getServletContext();
+        //El SAXBuilder es necesario para poder parsear el archivo
+        SAXBuilder saxBuilder = new SAXBuilder();
+        //Obtenemos la ruta relativa del archivo XML
+        File archivoXML = new File(context.getRealPath("/XMLs/Usuarios/usuarios.xml"));
+        
+        try{
+            //Se crea un documento a traves del archivo
+            Document document = (Document) saxBuilder.build(archivoXML);
+            //Obteniendo nodoRaiz
+            Element nodoRaiz = document.getRootElement();
+            List list = nodoRaiz.getChildren("Usuario");
+
+            for (int i = 0; i < list.size(); i++) {
+                Element elemento = (Element) list.get(i);
+                List listUsuario = elemento.getChildren("user");
+                List listPassword = elemento.getChildren("pass");
+                if( listUsuario != null && listUsuario.size() > 0 ){
+                    Element elementoUsuario = (Element)listUsuario.get(0);
+                    //System.out.println("elemeto" + elementoUsuario);
+                    String usuarioXML = elementoUsuario.getText();
+                    System.out.println("lalala" + usuarioXML);
+                    if(usuario.equals(usuarioXML)){
+                        System.out.println("Entro a la igualdad" + usuarioXML);
+                        Element elementoPassword = (Element)listPassword.get(0);
+                        String passwordXML = elementoPassword.getText();
+                        System.out.println("passwordXML "+ passwordXML);
+                        if( password.equals(passwordXML) ){
+                            System.out.println("Bienvenido has entrado con u"+ usuarioXML + "p" + passwordXML);
+                            response.sendRedirect("Pagina.html");
+                        }else{
+                            System.out.print("Password INcorrecto");
+                        }
+                    }else{
+                        System.out.println("Usuario NO existe");
+                    }
+                    
+                }
+            }
+            
+        } catch (JDOMException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -81,38 +126,7 @@ public class RegistrarUsuario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        PrintWriter out = response.getWriter();
-        String usuario = request.getParameter("usuario");
-        String password = request.getParameter("password");
-        
-        try{
-            
-            SAXBuilder saxBuilder = new SAXBuilder();
-            ServletContext servletContext = request.getServletContext();
-            File archivoXML = new File(servletContext.getRealPath("/XMLs/Usuarios/usuarios.xml"));
-            Document document = (Document) saxBuilder.build(archivoXML) ;
-            Element nodoRaiz = document.getRootElement();
-            
-            System.out.println(nodoRaiz);
-            //Element elementos = nodoRaiz.getChild("Usuario");
-            //System.out.println(elementos);
-            Element campo = new Element("Usuario");
-            Element nuevoUsuario = new Element("user").setText(usuario);
-            campo.addContent(nuevoUsuario);
-            
-            Element nuevaPass = new Element("pass").setText(password);
-            campo.addContent(nuevaPass);
-            //elementos.addContent(campo);
-            nodoRaiz.addContent(campo);
-            XMLOutputter xmlOut = new XMLOutputter();
-            xmlOut.setFormat(Format.getPrettyFormat());
-            xmlOut.output(document, new FileWriter(archivoXML));
-            response.sendRedirect("index.html");
-            
-        } catch (JDOMException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
