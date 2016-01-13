@@ -141,6 +141,7 @@ public class ObtenerMarcadores extends HttpServlet {
             Element marcador = listaDeMarcadores.get(i);
             //out.println("Marcador " + marcador.getName());
             out.println("<br>");
+            out.println("<form>");
             Attribute atributo =  marcador.getAttribute("ID");
             out.println("ID del marcador " + atributo.getValue());
             out.println("<br>");
@@ -150,7 +151,10 @@ public class ObtenerMarcadores extends HttpServlet {
             out.println("<br>");
             out.println("Longitud : "+ marcador.getChild("longitud").getText());
             out.println("<br>");
-            out.println("Comentarios : "+ marcador.getChild("comentario").getText());	
+            out.println("Comentarios : "+ marcador.getChild("comentario").getText());
+            out.println("<br>");
+            out.print("<button type=\"submit\" class=\"btn btn-danger\">Eliminar Marcador</button>");
+            out.println("</form>");
           }
         }
         catch (JDOMException ex) {
